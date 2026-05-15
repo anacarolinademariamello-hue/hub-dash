@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dash Digital | Central de Ferramentas</title>
+  <style>
+    :root {
+      --gold: #f8b940;
+      --gold-dark: #d99a20;
+      --gold-light: #ffd06a;
+      --blue: #003f7c;
+      --blue-mid: #1a5a9a;
+      --blue-dark: #0d2137;
+      --white: #ffffff;
+      --gray-50: #f0f3f8;
+      --gray-100: #e8ecf4;
+      --gray-200: #dde3ed;
+      --gray-400: #9ca3af;
+      --gray-600: #4b5563;
+      --gray-800: #1a1a2e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-800);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--blue-dark);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+
+    .logo-text {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.3px;
+    }
+
+    .logo-text span {
+      color: var(--gold);
+    }
+
+    .header-badge {
+      background: rgba(248,185,64,0.15);
+      border: 1px solid rgba(248,185,64,0.35);
+      color: var(--gold-light);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 60%, var(--blue) 100%);
+      padding: 64px 2rem 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.7rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .hero p {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: rgba(255,255,255,0.75);
+      max-width: 520px;
+      margin: 0 auto 10px;
+      line-height: 1.6;
+    }
+
+    .hero-sub {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 6px;
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 1.5rem 64px;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 20px;
+    }
+
+    /* ── TOOL CARDS ── */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+
+    .tool-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 28px 24px 24px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--gold));
+      opacity: 0;
+      transition: opacity 0.18s ease;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,63,124,0.12);
+      border-color: rgba(0,63,124,0.2);
+    }
+
+    .tool-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .icon-blue  { background: rgba(0,63,124,0.09); }
+    .icon-gold  { background: rgba(248,185,64,0.15); }
+    .icon-green { background: rgba(16,185,129,0.1); }
+
+    .card-content { flex: 1; }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 6px;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--gray-600);
+      line-height: 1.55;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .tag-blue  { background: rgba(0,63,124,0.08);  color: var(--blue); }
+    .tag-gold  { background: rgba(248,185,64,0.18); color: #a07010; }
+    .tag-green { background: #d1fae5; color: #065f46; }
+
+    .card-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid var(--gray-100);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--blue-mid);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .card-cta svg {
+      transition: transform 0.18s ease;
+    }
+
+    .tool-card:hover .card-cta svg {
+      transform: translateX(3px);
+    }
+
+    /* ── COMING SOON CARD ── */
+    .tool-card.coming-soon {
+      opacity: 0.55;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .tool-card.coming-soon:hover {
+      transform: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border-color: var(--gray-200);
+    }
+
+    .tag-gray { background: var(--gray-100); color: var(--gray-400); }
+
+    /* ── INFO SECTION ── */
+    .info-section {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .info-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(248,185,64,0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .info-text strong {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--blue);
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .info-text p {
+      font-size: 0.83rem;
+      color: var(--gray-600);
+      line-height: 1.55;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--blue-dark);
+      padding: 24px 2rem;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .footer-logo span { color: var(--gold); }
+
+    footer p {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .tools-grid { grid-template-columns: 1fr; }
+      main { padding: 36px 1rem 48px; }
+      .hero { padding: 48px 1.25rem 60px; }
+      .info-section { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-text"><span>Dash</span> Digital</div>
+    <div class="header-badge">Central de Ferramentas</div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Tudo que você precisa,<br><em>em um só lugar.</em></h1>
+    <p>Acesse todas as ferramentas da Dash Digital para otimizar a produção, análise e entrega de conteúdo.</p>
+    <p class="hero-sub">Dash Digital · Plataformas Internas</p>
+  </section>
+
+  <!-- MAIN -->
+  <main>
+    <p class="section-label">Ferramentas disponíveis</p>
+
+    <div class="tools-grid">
+
+      <!-- ANÚNCIOS -->
+      <a class="tool-card" href="https://dash-copy-ads-1.streamlit.app/" target="_blank" rel="noopener">
+        <div class="card-icon icon-gold">💰</div>
+        <div class="card-content">
+          <div class="card-title">Copies para Ads</div>
+          <div class="card-desc">Crie 5 copies de Meta Ads em segundos com inteligência artificial, adaptadas ao tom e objetivo de cada campanha.</div>
+          <div class="card-tags">
+            <span class="tag tag-gold">Meta Ads</span>
+            <span class="tag tag-blue">IA</span>
+            <span class="tag tag-green">Disponível</span>
+          </div>
+        </div>
+        <div class="card-cta">
+          Acessar ferramenta
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="#1a5a9a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- RELATÓRIOS -->
+      <a class="tool-card" href="https://dash-relatorios-app.streamlit.app/" target="_blank" rel="noopener">
+        <div class="card-icon icon-blue">📊</div>
+        <div class="card-content">
+          <div class="card-title">Relatórios da Meta</div>
+          <div class="card-desc">Gere relatórios completos de Instagram Analytics e Meta Ads com dados reais, gráficos e análise estratégica automática.</div>
+          <div class="card-tags">
+            <span class="tag tag-blue">Instagram</span>
+            <span class="tag tag-gold">Meta Ads</span>
+            <span class="tag tag-green">Disponível</span>
+          </div>
+        </div>
+        <div class="card-cta">
+          Acessar ferramenta
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="#1a5a9a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- TRANSCRIÇÃO -->
+      <a class="tool-card" href="https://anacarolinademariamello-hue.github.io/dash-transcricao/" target="_blank" rel="noopener">
+        <div class="card-icon icon-green">🎙️</div>
+        <div class="card-content">
+          <div class="card-title">Transcrição</div>
+          <div class="card-desc">Transcreva vídeos e áudios automaticamente para texto, otimizando a produção de roteiros, legendas e reaproveitamento de conteúdo.</div>
+          <div class="card-tags">
+            <span class="tag tag-blue">Vídeo</span>
+            <span class="tag tag-blue">Áudio</span>
+            <span class="tag tag-green">Disponível</span>
+          </div>
+        </div>
+        <div class="card-cta">
+          Acessar ferramenta
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="#1a5a9a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- EM BREVE -->
+      <div class="tool-card coming-soon">
+        <div class="card-icon icon-blue">🎬</div>
+        <div class="card-content">
+          <div class="card-title">Copies para Roteiros</div>
+          <div class="card-desc">Crie roteiros para vídeos, reels e stories com inteligência artificial, adaptados ao formato e objetivo de cada publicação.</div>
+          <div class="card-tags">
+            <span class="tag tag-gray">Em breve</span>
+          </div>
+        </div>
+        <div class="card-cta">
+          Em desenvolvimento
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="#9ca3af" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo"><span>Dash</span> Digital</div>
+    <p>Central de ferramentas internas · Dash Digital · @dashdgt</p>
+  </footer>
+
+</body>
+</html>
