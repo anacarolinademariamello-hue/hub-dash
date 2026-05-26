@@ -522,7 +522,7 @@
         </a>
 
         <!-- COPIES ROTEIROS -->
-        <a href="https://dash-copy-roteiro.streamlit.app/" target="_blank" class="tool-card">
+        <a href="https://dash-digital-app.streamlit.app/roteiros" target="_blank" class="tool-card">
           <div class="card-icon icon-blue">🎬</div>
           <div class="card-content">
             <div class="card-title">Copies para Roteiros</div>
@@ -541,7 +541,7 @@
         </a>
 
         <!-- CALENDÁRIO EDITORIAL -->
-        <a class="tool-card" href="https://dash-calendario-editorial.streamlit.app/" target="_blank" rel="noopener">
+        <a class="tool-card" href="https://dash-digital-app.streamlit.app/calendario" target="_blank" rel="noopener">
           <div class="card-icon icon-blue">📅</div>
           <div class="card-content">
             <div class="card-title">Calendário Editorial</div>
@@ -561,7 +561,7 @@
         </a>
 
         <!-- LEGENDAS -->
-        <a class="tool-card" href="https://dash-legendas-app.streamlit.app/" target="_blank" rel="noopener">
+        <a class="tool-card" href="https://dash-digital-app.streamlit.app/legendas" target="_blank" rel="noopener">
           <div class="card-icon icon-blue">✍️</div>
           <div class="card-content">
             <div class="card-title">Gerador de Legendas</div>
@@ -581,7 +581,7 @@
         </a>
 
         <!-- ANÚNCIOS -->
-        <a class="tool-card" href="https://dash-copy-ads-1.streamlit.app/" target="_blank" rel="noopener">
+        <a class="tool-card" href="https://dash-digital-app.streamlit.app/copy_ads" target="_blank" rel="noopener">
           <div class="card-icon icon-gold">💰</div>
           <div class="card-content">
             <div class="card-title">Copies para Ads</div>
@@ -620,12 +620,22 @@
       document.getElementById('main-content').style.display = 'block';
     }
 
-    function doLogin() {
+    const _HASH_U = 'c00da22c4192365840973c61a3fc5136e7afa79db9b1c41850b3cb0f97e6a127'; // usuário
+    const _HASH_P = 'feb9cd5503fb66e898551fa532e3660cab561015e5d68df55030278ed504a8bc'; // senha
+
+    async function _sha256(str) {
+      const buf  = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function doLogin() {
       const user = document.getElementById('login-user').value.trim();
       const pass = document.getElementById('login-pass').value;
       const err  = document.getElementById('login-error');
 
-      if (user === 'dashdgt' && pass === 'CeZmaceio') {
+      const [hu, hp] = await Promise.all([_sha256(user), _sha256(pass)]);
+
+      if (hu === _HASH_U && hp === _HASH_P) {
         sessionStorage.setItem('dash_auth', '1');
         document.getElementById('login-overlay').style.display = 'none';
         document.getElementById('main-content').style.display = 'block';
